@@ -1,1 +1,1 @@
-int foo(void);
+void bubblesort(int arr[], int len);
