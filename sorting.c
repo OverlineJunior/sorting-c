@@ -19,7 +19,7 @@ int smallest_index(int arr[], int len, int starting_index) {
     return index;
 }
 
-void bubblesort(int arr[], int len) {
+void bubble_sort(int arr[], int len) {
     for (int i = 0; i < len - 1; i++)
         for (int j = 0; j < len - i - 1; j++)
             if (arr[j] > arr[j + 1])

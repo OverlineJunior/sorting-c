@@ -8,6 +8,6 @@ int main(void) {
         .len = 5,
     };
 
-    test(case1, bubblesort);
+    test(case1, bubble_sort);
     test(case1, selection_sort);
 }
