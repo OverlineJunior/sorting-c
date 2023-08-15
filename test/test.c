@@ -36,11 +36,11 @@ void array_to_string(int arr[], int len, char buffer[]) {
     strcat(buffer, "]");
 }
 
-void test(TestCase test_case, SortingFunction sort) {
+void test(TestCase test_case, SortingFunction sort, char label[]) {
     sort(test_case.input, test_case.len);
 
     if (array_eq(test_case.input, test_case.expected, test_case.len)) {
-        printf("Pass\n");
+        printf("[%s] Pass\n", label);
     } else {
         char input_str[ARRAY_SIZE * 3] = "";
         array_to_string(test_case.input, test_case.len, input_str);
@@ -48,6 +48,6 @@ void test(TestCase test_case, SortingFunction sort) {
         char expected_str[ARRAY_SIZE * 3] = "";
         array_to_string(test_case.expected, test_case.len, expected_str);
 
-        printf("Fail ---- Expected `%s`, got `%s`\n", expected_str, input_str);
+        printf("[%s] Fail ---- Expected `%s`, got `%s`\n", label, expected_str, input_str);
     }
 }

@@ -8,4 +8,4 @@ typedef struct {
     int len;
 } TestCase;
 
-void test(TestCase test_case, SortingFunction sort);
+void test(TestCase test_case, SortingFunction sort, char label[]);
