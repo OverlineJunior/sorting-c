@@ -11,4 +11,5 @@ int main(void) {
     test(case1, bubble_sort, "BubbleSort");
     test(case1, selection_sort, "SelectionSort");
     test(case1, insertion_sort, "InsertionSort");
+    test(case1, merge_sort, "MergeSort");
 }

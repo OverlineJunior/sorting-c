@@ -4,6 +4,7 @@ void swap(int *a, int *b) {
     *b = aux;
 }
 
+// Returns the index of the smallest element.
 int smallest_index(int arr[], int len, int starting_index) {
     int n = arr[starting_index];
     int index = starting_index;
@@ -15,6 +16,35 @@ int smallest_index(int arr[], int len, int starting_index) {
         }
 
     return index;
+}
+
+// Merges two arrays into a new, sorted one.
+void merge(int buf_arr[], int arr1[], int arr1_len, int arr2[], int arr2_len) {
+    int buf_i = 0, i1 = 0, i2 = 0;
+
+    while (i1 < arr1_len && i2 < arr2_len) {
+        if (arr1[i1] < arr2[i2]) {
+            buf_arr[buf_i] = arr1[i1];
+            i1++;
+        } else {
+            buf_arr[buf_i] = arr2[i2];
+            i2++;
+        }
+
+        buf_i++;
+    }
+
+    while (i1 < arr1_len) {
+        buf_arr[buf_i] = arr1[i1];
+        i1++;
+        buf_i++;
+    }
+
+    while (i2 < arr2_len) {
+        buf_arr[buf_i] = arr1[i2];
+        i2++;
+        buf_i++;
+    }
 }
 
 void bubble_sort(int arr[], int len) {
@@ -39,4 +69,23 @@ void insertion_sort(int arr[], int len) {
             if (arr[j - 1] > arr[j])
                 swap(&arr[j - 1], &arr[j]);
     }
+}
+
+void merge_sort(int arr[], int len) {
+    if (len <= 1)
+        return;
+    
+    int mid_i = len / 2;
+    int left_i[mid_i];
+    int right_i[len - mid_i];
+    
+    for (int i = 0; i < mid_i; i++)
+        left_i[i] = arr[i];
+    
+    for (int i = mid_i; i < len; i++)
+        right_i[i - mid_i] = arr[i];
+    
+    merge_sort(left_i, mid_i);
+    merge_sort(right_i, len - mid_i);
+    merge(arr, left_i, mid_i, right_i, len - mid_i);
 }
