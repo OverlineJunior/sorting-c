@@ -18,32 +18,44 @@ int smallest_index(int arr[], int len, int starting_index) {
     return index;
 }
 
-// Merges two arrays into a new, sorted one.
-void merge(int buf_arr[], int arr1[], int arr1_len, int arr2[], int arr2_len) {
-    int buf_i = 0, i1 = 0, i2 = 0;
+void merge(int arr[], int left_i, int mid_i, int right_i) {
+    int left_len = mid_i - left_i + 1;
+    int right_len = right_i - mid_i;
 
-    while (i1 < arr1_len && i2 < arr2_len) {
-        if (arr1[i1] < arr2[i2]) {
-            buf_arr[buf_i] = arr1[i1];
-            i1++;
+    int left[left_len], right[right_len];
+
+    for (int i = 0; i < left_len; i++)
+        left[i] = arr[left_i + i];
+
+    for (int j = 0; j < right_len; j++)
+        right[j] = arr[mid_i + 1 + j];
+
+    int i = 0;
+    int j = 0;
+    int k = left_i;
+
+    while (i < left_len && j < right_len) {
+        if (left[i] <= right[j]) {
+            arr[k] = left[i];
+            i++;
         } else {
-            buf_arr[buf_i] = arr2[i2];
-            i2++;
+            arr[k] = right[j];
+            j++;
         }
 
-        buf_i++;
+        k++;
     }
 
-    while (i1 < arr1_len) {
-        buf_arr[buf_i] = arr1[i1];
-        i1++;
-        buf_i++;
+    while (i < left_len) {
+        arr[k] = left[i];
+        i++;
+        k++;
     }
 
-    while (i2 < arr2_len) {
-        buf_arr[buf_i] = arr1[i2];
-        i2++;
-        buf_i++;
+    while (j < right_len) {
+        arr[k] = right[j];
+        j++;
+        k++;
     }
 }
 
@@ -71,21 +83,18 @@ void insertion_sort(int arr[], int len) {
     }
 }
 
-void merge_sort(int arr[], int len) {
-    if (len <= 1)
+void merge_sort_(int arr[], int left_i, int right_i) {
+    if (left_i >= right_i)
         return;
-    
-    int mid_i = len / 2;
-    int left_i[mid_i];
-    int right_i[len - mid_i];
-    
-    for (int i = 0; i < mid_i; i++)
-        left_i[i] = arr[i];
-    
-    for (int i = mid_i; i < len; i++)
-        right_i[i - mid_i] = arr[i];
-    
-    merge_sort(left_i, mid_i);
-    merge_sort(right_i, len - mid_i);
-    merge(arr, left_i, mid_i, right_i, len - mid_i);
+
+    int mid_i = left_i + (right_i - left_i) / 2;
+
+    merge_sort_(arr, left_i, mid_i);
+    merge_sort_(arr, mid_i + 1, right_i);
+
+    merge(arr, left_i, mid_i, right_i);
+}
+
+void merge_sort(int arr[], int len) {
+    merge_sort_(arr, 0, len - 1);
 }

@@ -2,14 +2,30 @@
 #include "test.h"
 
 int main(void) {
-    TestCase case1 = {
-        .input = {5, 4, 3, 2, 1},
-        .expected = {1, 2, 3, 4, 5},
-        .len = 5,
+    TestCase worst_case = {
+        .input = {1, 1, 0, -1},
+        .expected = {-1, 0, 1, 1},
+        .len = 4,
     };
 
-    test(case1, bubble_sort, "BubbleSort");
-    test(case1, selection_sort, "SelectionSort");
-    test(case1, insertion_sort, "InsertionSort");
-    test(case1, merge_sort, "MergeSort");
+    TestCase best_case = {
+        .input = {-1, 0, 1, 1},
+        .expected = {-1, 0, 1, 1},
+        .len = 4,
+    };
+
+    TestCase average_case = {
+        .input = {1, 0, -1, 1},
+        .expected = {-1, 0, 1, 1},
+        .len = 4,
+    };
+
+    TestCase cases[] = {worst_case, best_case, average_case};
+
+    for (int i = 0; i < sizeof(cases) / sizeof(cases[0]); i++) {
+        test(cases[i], bubble_sort, "BubbleSort");
+        test(cases[i], selection_sort, "SelectionSort");
+        test(cases[i], insertion_sort, "InsertionSort");
+        test(cases[i], merge_sort, "MergeSort");
+    }   
 }
