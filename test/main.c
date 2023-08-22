@@ -1,5 +1,6 @@
 #include "../sorting.h"
 #include "test.h"
+#include <stdio.h>
 
 int main(void) {
     TestCase worst_case = {
@@ -29,4 +30,13 @@ int main(void) {
         test(cases[i], merge_sort, "MergeSort");
         test(cases[i], quick_sort, "QuickSort");
     }
+
+    TestCase unsigned_case = {
+        .input = {1, 0, 2, 1},
+        .expected = {0, 1, 1, 2},
+        .len = 4,
+    };
+
+    // Default couting sort only works with unsigned integers.
+    test(unsigned_case, counting_sort, "CountingSort");
 }

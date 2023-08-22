@@ -130,3 +130,28 @@ void quick_sort_(int arr[], int start_i, int end_i) {
 void quick_sort(int arr[], int len) {
     quick_sort_(arr, 0, len - 1);
 }
+
+void counting_sort(int arr[], int len) {
+    int max = arr[0];
+
+    for (int i = 0; i < len; i++)
+        if (arr[i] > max)
+            max = arr[i];
+
+    int counter_len = max + 1;
+    int counter[counter_len];
+
+    for (int i = 0; i < counter_len; i++)
+        counter[i] = 0;
+
+    for (int i = 0; i < len; i++)
+        counter[arr[i]]++;
+
+    int i = 0;
+
+    for (int n = 0; n < counter_len; n++)
+        for (int _j = 0; _j < counter[n]; _j++) {
+            arr[i] = n;
+            i++;
+        }
+}
