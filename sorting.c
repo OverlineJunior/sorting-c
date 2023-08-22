@@ -1,3 +1,5 @@
+#include "libs/maybe_int.h"
+
 void swap(int *a, int *b) {
     int aux = *a;
     *a = *b;
@@ -97,4 +99,36 @@ void merge_sort_(int arr[], int left_i, int right_i) {
 
 void merge_sort(int arr[], int len) {
     merge_sort_(arr, 0, len - 1);
+}
+
+// Assuming pivot is the last element, place elements greater than pivot after it and smaller than pivot before it.
+// Returns the pivots index after the changes.
+int partition(int arr[], int start_i, int end_i) {
+    int pivot_i = end_i;
+
+    for (int i = start_i; i < pivot_i; i++)
+        if (arr[i] > arr[pivot_i]) {
+            swap(&arr[i], &arr[pivot_i - 1]);
+            swap(&arr[pivot_i - 1], &arr[pivot_i]);
+            pivot_i--;
+
+            // Dont skip this iteration because its new value after swap might be greater than the pivot.
+            i--;
+        }
+
+    return pivot_i;
+}
+
+void quick_sort_(int arr[], int start_i, int end_i) {
+    if (start_i >= end_i)
+        return;
+
+    int pivot_i = partition(arr, start_i, end_i);
+
+    quick_sort_(arr, start_i, pivot_i - 1);
+    quick_sort_(arr, pivot_i + 1, end_i);
+}
+
+void quick_sort(int arr[], int len) {
+    quick_sort_(arr, 0, len - 1);
 }

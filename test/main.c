@@ -27,5 +27,6 @@ int main(void) {
         test(cases[i], selection_sort, "SelectionSort");
         test(cases[i], insertion_sort, "InsertionSort");
         test(cases[i], merge_sort, "MergeSort");
-    }   
+        test(cases[i], quick_sort, "QuickSort");
+    }
 }
