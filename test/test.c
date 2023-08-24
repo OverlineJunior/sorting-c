@@ -24,7 +24,7 @@ void array_to_string(int arr[], int len, char buffer[]) {
     strcat(buffer, "[");
 
     for (int i = 0; i < len; i++) {
-        char num_str[] = ";";
+        char num_str[3] = "";
         sprintf(num_str, "%i", arr[i]);
 
         strcat(buffer, num_str);
