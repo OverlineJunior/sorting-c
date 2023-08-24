@@ -1,3 +1,13 @@
+#include <stdlib.h>
+
+// TODO! Bucket size should be dynamic, based on arr.len. A solution to it is using a linked list instead.
+#define BUCKET_SIZE 10
+
+typedef struct {
+    int elements[BUCKET_SIZE];
+    int len;
+} Bucket;
+
 void swap(int *a, int *b) {
     int aux = *a;
     *a = *b;
@@ -154,4 +164,42 @@ void counting_sort(int arr[], int len) {
             arr[i] = n;
             i++;
         }
+}
+
+void bucket_sort(int arr[], int len) {
+    int max = arr[0], min = arr[0];
+
+    for (int i = 0; i < len; i++) {
+        if (arr[i] > max)
+            max = arr[i];
+
+        if (arr[i] < min)
+            min = arr[i];
+    }
+
+    int buckets_len = (max - min) / BUCKET_SIZE + 1;
+    Bucket buckets[buckets_len];
+
+    for (int i = 0; i < buckets_len; i++)
+        buckets[i].len = 0;
+
+    // Scatter.
+    for (int i = 0; i < len; i++) {
+        int bucket_i = arr[i] / BUCKET_SIZE;
+        buckets[bucket_i].elements[buckets[bucket_i].len] = arr[i];
+        buckets[bucket_i].len++;
+    }
+
+    int arr_i = 0;
+
+    // Gather.
+    for (int i = 0; i < buckets_len; i++) {
+        Bucket bucket = buckets[i];
+        quick_sort(bucket.elements, bucket.len);
+
+        for (int j = 0; j < bucket.len; j++) {
+            arr[arr_i] = bucket.elements[j];
+            arr_i++;
+        }
+    }
 }

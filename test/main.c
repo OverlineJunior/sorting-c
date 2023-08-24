@@ -37,6 +37,7 @@ int main(void) {
         .len = 4,
     };
 
-    // Default couting sort only works with unsigned integers.
+    // Those sorting algorithms only work with unsigned integers.
     test(unsigned_case, counting_sort, "CountingSort");
+    test(unsigned_case, bucket_sort, "BucketSort");
 }
